@@ -12,6 +12,11 @@ class User {
     .where({ name: name })
     .first();
 }
+static async findById(id) {
+  return await knex('users')
+    .where({ id: id })
+    .first();
+}
 }
 
 module.exports = User;
