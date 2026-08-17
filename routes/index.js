@@ -1,24 +1,19 @@
 var express = require('express');
 var router = express.Router();
-const db = require('../db');
+const knex = require('../db/knex');
 
-router.get('/', function(req, res, next) {
-  db.query(
-    'SELECT * FROM tasks',
-    function(error, results) {
-      res.render('index', { tasks: results });
-    }
-  );
+router.get('/', async function(req, res, next) {
+  const tasks = await knex('tasks').select('*');
+  res.render('index', { tasks: tasks });
 });
-router.post('/create', function(req, res, next) {
+router.post('/create', async function(req, res, next) {
   const content = req.body.content;
 
-  db.query(
-    'INSERT INTO tasks (user_id, content) VALUES (?, ?)',
-    [1, content],
-    function(error, results) {
-      res.redirect('/');
-    }
-  );
+  await knex('tasks').insert({
+    user_id: 1,
+    content: content
+  });
+
+  res.redirect('/');
 });
 module.exports = router;
