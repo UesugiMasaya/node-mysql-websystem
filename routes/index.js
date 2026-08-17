@@ -10,5 +10,15 @@ router.get('/', function(req, res, next) {
     }
   );
 });
+router.post('/create', function(req, res, next) {
+  const content = req.body.content;
 
+  db.query(
+    'INSERT INTO tasks (user_id, content) VALUES (?, ?)',
+    [1, content],
+    function(error, results) {
+      res.redirect('/');
+    }
+  );
+});
 module.exports = router;

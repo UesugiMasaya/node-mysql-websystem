@@ -1,5 +1,10 @@
 <h1>ToDoアプリ</h1>
 
+<form action="/create" method="post">
+   <input type="text" name="content">
+  <button type="submit">追加</button>
+</form>
+
 <ul>
   <% tasks.forEach(function(task) { %>
     <li><%= task.content %></li>
