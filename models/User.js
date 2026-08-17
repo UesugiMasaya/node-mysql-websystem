@@ -7,6 +7,11 @@ class User {
       password: password
     });
   }
+  static async findByName(name) {
+  return await knex('users')
+    .where({ name: name })
+    .first();
+}
 }
 
 module.exports = User;
